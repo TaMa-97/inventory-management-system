@@ -1,0 +1,52 @@
+<content><?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- システムアーキテクチャ図 -->
+  <style>
+    .title { font: bold 24px sans-serif; }
+    .box { fill: white; stroke: #333; stroke-width: 2; }
+    .label { font: 14px sans-serif; }
+    .arrow { stroke: #666; stroke-width: 2; marker-end: url(#arrowhead); }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    </marker>
+  </defs>
+
+  <!-- タイトル -->
+  <text x="400" y="40" text-anchor="middle" class="title">在庫管理システム アーキテクチャ</text>
+
+  <!-- フロントエンド -->
+  <g transform="translate(100,100)">
+    <rect width="250" height="300" class="box" rx="10"/>
+    <text x="125" y="30" text-anchor="middle" class="label">フロントエンド</text>
+    
+    <rect x="25" y="50" width="200" height="40" class="box" rx="5"/>
+    <text x="125" y="75" text-anchor="middle" class="label">Vue.js (UI)</text>
+
+    <rect x="25" y="120" width="200" height="40" class="box" rx="5"/>
+    <text x="125" y="145" text-anchor="middle" class="label">Pinia (State Management)</text>
+
+    <rect x="25" y="190" width="200" height="40" class="box" rx="5"/>
+    <text x="125" y="215" text-anchor="middle" class="label">API Client</text>
+  </g>
+
+  <!-- バックエンド -->
+  <g transform="translate(450,100)">
+    <rect width="250" height="300" class="box" rx="10"/>
+    <text x="125" y="30" text-anchor="middle" class="label">バックエンド</text>
+
+    <rect x="25" y="50" width="200" height="40" class="box" rx="5"/>
+    <text x="125" y="75" text-anchor="middle" class="label">Express Server</text>
+
+    <rect x="25" y="120" width="200" height="40" class="box" rx="5"/>
+    <text x="125" y="145" text-anchor="middle" class="label">API Routes</text>
+
+    <rect x="25" y="190" width="200" height="40" class="box" rx="5"/>
+    <text x="125" y="215" text-anchor="middle" class="label">SQLite Database</text>
+  </g>
+
+  <!-- 接続線 -->
+  <path d="M350,220 L450,220" class="arrow"/>
+</content>
