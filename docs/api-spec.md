@@ -1,9 +1,9 @@
-# API仕様書
+# API 仕様書
 
-## ベースURL
+## ベース URL
+
 ```
 開発環境: http://localhost:3000/api
-本番環境: https://your-api.render.com/api
 ```
 
 ## エンドポイント一覧
@@ -11,6 +11,7 @@
 ### 商品管理 API
 
 #### 商品一覧の取得
+
 ```
 GET /products
 
@@ -30,6 +31,7 @@ GET /products
 ```
 
 #### 商品の取得
+
 ```
 GET /products/:id
 
@@ -45,6 +47,7 @@ GET /products/:id
 ```
 
 #### 商品の登録
+
 ```
 POST /products
 Content-Type: application/json
@@ -70,6 +73,7 @@ Content-Type: application/json
 ```
 
 #### 商品の更新
+
 ```
 PATCH /products/:id
 Content-Type: application/json
@@ -92,6 +96,7 @@ Content-Type: application/json
 ```
 
 #### 商品の削除
+
 ```
 DELETE /products/:id
 
@@ -100,6 +105,7 @@ DELETE /products/:id
 ```
 
 #### 在庫数の調整
+
 ```
 POST /products/:id/stock
 Content-Type: application/json
@@ -121,6 +127,7 @@ Content-Type: application/json
 ```
 
 ## エラーレスポンス
+
 ```json
 {
   "error": "エラーメッセージ"
@@ -128,6 +135,7 @@ Content-Type: application/json
 ```
 
 ## ステータスコード
+
 - 200: 成功
 - 201: 作成成功
 - 204: 削除成功

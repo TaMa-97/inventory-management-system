@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { z } from 'zod';
 import {
   getAllCategories,
@@ -12,17 +12,17 @@ export const categoryRouter = Router();
 
 const CategorySchema = z.object({
   name: z.string().min(1),
-  description: z.string().optional()
+  description: z.string().optional().nullable()
 });
 
 // カテゴリ一覧の取得
-categoryRouter.get('/', (_, res) => {
+categoryRouter.get('/', (_: Request, res: Response) => {
   const categories = getAllCategories();
   res.json(categories);
 });
 
 // カテゴリの取得
-categoryRouter.get('/:id', (req, res) => {
+categoryRouter.get('/:id', (req: Request, res: Response) => {
   const category = getCategoryById(Number(req.params.id));
   if (!category) {
     return res.status(404).json({ error: 'カテゴリが見つかりません' });
@@ -31,10 +31,13 @@ categoryRouter.get('/:id', (req, res) => {
 });
 
 // カテゴリの作成
-categoryRouter.post('/', (req, res) => {
+categoryRouter.post('/', (req: Request, res: Response) => {
   try {
     const categoryData = CategorySchema.parse(req.body);
-    const category = createCategory(categoryData);
+    const category = createCategory({
+      name: categoryData.name,
+      description: categoryData.description || ''
+    });
     res.status(201).json(category);
   } catch (error) {
     res.status(400).json({ error: '無効なデータです' });
@@ -42,11 +45,14 @@ categoryRouter.post('/', (req, res) => {
 });
 
 // カテゴリの更新
-categoryRouter.patch('/:id', (req, res) => {
+categoryRouter.patch('/:id', (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
     const updates = CategorySchema.partial().parse(req.body);
-    const category = updateCategory(id, updates);
+    const category = updateCategory(id, {
+      ...updates,
+      description: updates.description || undefined
+    });
     
     if (!category) {
       return res.status(404).json({ error: 'カテゴリが見つかりません' });
@@ -59,7 +65,7 @@ categoryRouter.patch('/:id', (req, res) => {
 });
 
 // カテゴリの削除
-categoryRouter.delete('/:id', (req, res) => {
+categoryRouter.delete('/:id', (req: Request, res: Response) => {
   const id = Number(req.params.id);
   try {
     deleteCategory(id);

@@ -7,11 +7,12 @@ import { setupDatabase } from './database.js';
 const app = express();
 const port = process.env.PORT || 3000;
 
-// CORS configuration for production
+// CORS configuration
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-frontend-domain.netlify.app']  // フロントエンドのURLに更新
-    : true
+    ? process.env.FRONTEND_URL || 'https://dashing-sunburst-937eb9.netlify.app/'
+    : true,
+  credentials: true
 }));
 
 app.use(express.json());
@@ -19,7 +20,12 @@ app.use(express.json());
 // データベースのセットアップ
 setupDatabase();
 
-// ルート設定
+// Health check endpoint
+app.get('/health', (_, res) => {
+  res.json({ status: 'ok' });
+});
+
+// API routes
 app.use('/api/products', productRouter);
 app.use('/api/categories', categoryRouter);
 

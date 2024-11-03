@@ -7,3 +7,6 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: FRONTEND_URL
+        value: https://dashing-sunburst-937eb9.netlify.app/
+    healthCheckPath: /health
