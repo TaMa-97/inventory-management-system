@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useInventoryStore } from '../stores/inventory'
-import type { Product } from '../types'
 
 const props = defineProps<{
   productId?: number
@@ -40,10 +39,18 @@ onMounted(() => {
 
 const handleSubmit = async () => {
   try {
+    const productData = {
+      name: formData.value.name,
+      sku: formData.value.sku,
+      quantity: formData.value.quantity,
+      price: formData.value.price,
+      category: formData.value.category
+    }
+
     if (props.productId) {
-      await store.updateProduct(props.productId, formData.value)
+      await store.updateProduct(props.productId, productData)
     } else {
-      await store.addProduct(formData.value)
+      await store.addProduct(productData)
     }
     emit('submit')
   } catch (e) {

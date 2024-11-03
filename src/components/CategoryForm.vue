@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useCategoryStore } from '../stores/category'
-import type { Category } from '../types'
 
 const props = defineProps<{
   categoryId?: number
@@ -34,10 +33,15 @@ onMounted(() => {
 
 const handleSubmit = async () => {
   try {
+    const categoryData = {
+      name: formData.value.name,
+      description: formData.value.description
+    }
+
     if (props.categoryId) {
-      await store.updateCategory(props.categoryId, formData.value)
+      await store.updateCategory(props.categoryId, categoryData)
     } else {
-      await store.addCategory(formData.value)
+      await store.addCategory(categoryData)
     }
     emit('submit')
   } catch (e) {
