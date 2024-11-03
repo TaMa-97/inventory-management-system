@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import {
   HomeIcon,
   CubeIcon,
   ArchiveBoxIcon,
-  TagIcon,
   ChevronDoubleLeftIcon,
-  ChevronDoubleRightIcon
+  ChevronDoubleRightIcon,
+  TagIcon
 } from '@heroicons/vue/24/outline'
 
 const props = defineProps<{

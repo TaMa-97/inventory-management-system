@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useCategoryStore } from '../stores/category'
+import type { Category } from '../types'
 
 const props = defineProps<{
   categoryId?: number
@@ -23,7 +24,10 @@ onMounted(() => {
   if (props.categoryId) {
     const category = store.categories.find(c => c.id === props.categoryId)
     if (category) {
-      formData.value = { ...category }
+      formData.value = {
+        name: category.name,
+        description: category.description
+      }
     }
   }
 })

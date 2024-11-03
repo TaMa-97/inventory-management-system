@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useInventoryStore } from '../stores/inventory'
+import type { Product } from '../types'
 
 const props = defineProps<{
   productId?: number
@@ -26,7 +27,13 @@ onMounted(() => {
   if (props.productId) {
     const product = store.products.find(p => p.id === props.productId)
     if (product) {
-      formData.value = { ...product }
+      formData.value = {
+        name: product.name,
+        sku: product.sku,
+        quantity: product.quantity,
+        price: product.price,
+        category: product.category
+      }
     }
   }
 })
