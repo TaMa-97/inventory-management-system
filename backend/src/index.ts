@@ -12,10 +12,11 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? process.env.FRONTEND_URL ||
-          "https://dashing-sunburst-937eb9.netlify.app/"
-        : true,
+        ? "https://dashing-sunburst-937eb9.netlify.app"
+        : "http://localhost:5173",
     credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
