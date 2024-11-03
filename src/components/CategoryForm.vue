@@ -33,15 +33,20 @@ onMounted(() => {
 
 const handleSubmit = async () => {
   try {
-    const categoryData = {
-      name: formData.value.name,
-      description: formData.value.description
-    }
-
     if (props.categoryId) {
-      await store.updateCategory(props.categoryId, categoryData)
+      await store.updateCategory(props.categoryId, {
+        name: formData.value.name,
+        description: formData.value.description,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      })
     } else {
-      await store.addCategory(categoryData)
+      await store.addCategory({
+        name: formData.value.name,
+        description: formData.value.description,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      })
     }
     emit('submit')
   } catch (e) {

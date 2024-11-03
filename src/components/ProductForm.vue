@@ -39,18 +39,26 @@ onMounted(() => {
 
 const handleSubmit = async () => {
   try {
-    const productData = {
-      name: formData.value.name,
-      sku: formData.value.sku,
-      quantity: formData.value.quantity,
-      price: formData.value.price,
-      category: formData.value.category
-    }
-
     if (props.productId) {
-      await store.updateProduct(props.productId, productData)
+      await store.updateProduct(props.productId, {
+        name: formData.value.name,
+        sku: formData.value.sku,
+        quantity: formData.value.quantity,
+        price: formData.value.price,
+        category: formData.value.category,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      })
     } else {
-      await store.addProduct(productData)
+      await store.addProduct({
+        name: formData.value.name,
+        sku: formData.value.sku,
+        quantity: formData.value.quantity,
+        price: formData.value.price,
+        category: formData.value.category,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      })
     }
     emit('submit')
   } catch (e) {
